@@ -13,21 +13,27 @@
         android:id="@+id/metaFile"
         android:icon="@drawable/meta_info"
         android:title="@string/meta"
-        android:orderInCategory="4"
+        android:orderInCategory="3"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/unlockFile"
         android:icon="@drawable/lock_icon"
         android:title="@string/unlock"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/shareFile"
         android:icon="@drawable/share_icon"
         android:title="@string/share"
-        android:orderInCategory="2"
+        android:orderInCategory="4"
+        app:showAsAction="always"  />
+    <item
+        android:id="@+id/printFile"
+        android:icon="@drawable/print_icon"
+        android:title="@string/print"
+        android:orderInCategory="5"
         app:showAsAction="always"  />
 
 </menu>

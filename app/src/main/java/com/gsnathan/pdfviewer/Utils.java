@@ -25,21 +25,13 @@
 package com.gsnathan.pdfviewer;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-
-import java.io.File;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.appcompat.app.AlertDialog;
+
 import io.github.tonnyl.whatsnew.WhatsNew;
 import io.github.tonnyl.whatsnew.item.WhatsNewItem;
 

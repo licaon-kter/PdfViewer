@@ -25,6 +25,7 @@
 package com.gsnathan.pdfviewer;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.provider.OpenableColumns;
 
 import androidx.annotation.NonNull;
@@ -57,12 +60,8 @@ import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
-import com.github.barteksc.pdfviewer.util.FileUtils;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
-import com.jaredrummler.cyanea.Cyanea;
 import com.jaredrummler.cyanea.prefs.CyaneaSettingsActivity;
-import com.jaredrummler.cyanea.prefs.CyaneaThemePickerActivity;
-import com.jaredrummler.cyanea.prefs.CyaneaThemePickerLauncher;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.shockwave.pdfium.PdfDocument;
 
@@ -70,12 +69,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
@@ -318,6 +313,9 @@ public class MainActivity extends ProgressActivity implements OnPageChangeListen
                     case R.id.shareFile:
                         shareFile();
                         break;
+                    case R.id.printFile:
+                        printPDF();
+                        break;
                     default:
                         break;
 
@@ -327,8 +325,17 @@ public class MainActivity extends ProgressActivity implements OnPageChangeListen
         });
     }
 
-    void unlockPDF() {
+    void printPDF() {
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        try {
+            PrintDocumentAdapter printAdapter = new PdfDocumentAdapter(this, uri);
+            printManager.print("Print " + pdfFileName, printAdapter, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    void unlockPDF() {
         final EditText input = new EditText(this);
         input.setPadding(19, 19, 19, 19);
         input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
